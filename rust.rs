@@ -158,29 +158,35 @@ fn main() {
 
 
 
-	// number guessing  game
+	// number guessing game
 
+	println!("***Pick a number game***");
 
-	'outer': loop {
+	'outer: loop {
 	    let number : i32 = 10;
-	    println!("Pick a number");
+	    println!("Pick a number:");
 
 	    loop {
-	        let mut line = String:new();
+	        let mut line = String::new();
 
+	        // line by reference
 	        let input = stdin().read_line(&mut line);
 
 	        let guess: Option<i32> = input.ok().map_or(None, |_| line.trim().parse().ok());
 	    
 	        match guess {
-	            Some(n) => if n == number => {
+	            Some(n) if n == number => {
 	            	println!("You Guessed it");
-	            	break 'outer';
+	            	break 'outer;
 	            },
-	            Some(n) => if n < number => {
-	            	println!("");
+	            Some(n) if n < number => {
+	            	println!("Too low");
 	            },
-	            None => println!("Enter a number: ");,
+	            Some(n) if n > number => {
+	            	println!("Too high");
+	            },
+	            Some(_) => println!("Error"),	            
+	            None => println!("Enter a number: "),
 	        }
 	    }
 	}
